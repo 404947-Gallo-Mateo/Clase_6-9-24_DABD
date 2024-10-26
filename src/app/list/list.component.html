@@ -1,4 +1,13 @@
 @if(lstProgramadores.length > 0){
+  <!-- Filtro con un formulario a la espera del boton  filtrar -->
+  <form [formGroup]="formFiltro" >
+    <input type="text" formControlName="nombre">
+    <input type="text" formControlName="apellido">
+    <button type="submit" (click)="filtrar()" >Filtrar</button>
+  </form>
+ <!-- Filtro con un form control reactivo -->
+  <hr>
+    <input type="text" [formControl]="filtro">
     <hr>
     <table class="table">
       <thead>
@@ -6,7 +15,6 @@
           <th scope="col">#</th>
           <th scope="col">Nombre Completo</th>
           <th scope="col">Email</th>
-          <th scope="col">Red Social</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -16,7 +24,6 @@
           <th scope="row">{{$index}}</th>
           <td>{{prog.apellido}} {{prog.nombre}}</td>
           <td>{{prog.contacto.email}}</td>
-          <td>{{prog.contacto.redSocial}}</td>
           <td><button type="button" class="btn btn-danger" (click)="eliminarProgramador(prog.id)">Eliminar</button>
             <button class="btn btn-primary" [routerLink]="['/form',prog.id]">Editar</button> 
             <button class="btn btn-success" (click)="detalles(prog.id)">Detalles</button>       

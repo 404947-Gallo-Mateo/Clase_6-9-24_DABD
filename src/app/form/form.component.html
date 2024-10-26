@@ -2,7 +2,8 @@
     <h1>Datos del programador</h1>
     <div class="col-md-4">
         <label for="validationCustom01" class="form-label">Nombre:</label>
-        <input [ngClass]="{'is-invalid':form.controls['nombre'].invalid && form.controls['nombre'].touched }" formControlName="nombre" type="text" class="form-control">
+        <input [ngClass]="{'is-invalid':form.controls['nombre'].invalid && form.controls['nombre'].touched }"
+            formControlName="nombre" type="text" class="form-control">
         @if(form.controls['nombre'].invalid && form.controls['nombre'].touched){
         @if(form.controls['nombre'].errors?.['required']){
         <div class="text-danger">Nombre obligatorio</div>
@@ -14,33 +15,50 @@
         <input type="text" class="form-control" formControlName="apellido">
 
     </div>
-    <!-- <div class="col-md-12">
+    <div class="col-md-4">
+        <label for="validationCustom02" class="form-label">Dni:</label>
+        <input type="text" class="form-control" formControlName="dni">
+        @if(form.controls['dni'].errors?.['dniUnico']){
+        <div> Este dni ya existe.</div>
+        }
+
+    </div>
+    <div class="col-md-12">
         <label for="validationCustomUsername" class="form-label">Habilidades</label>
-        <select class="form-select" name="habilidadSeleccionada" [(ngModel)]="habilidadSeleccionada">
+        <select class="form-select" [formControl]="habilidadSeleccionada">
             @for(item of listHabilidades ; track $index){
             <option [value]="item">{{item}}</option>
             }
         </select>
-        <div class="mt-2">
+        <div class="mt-2" formArrayName="habilidades">
             <button type="button" class="btn btn-primary" (click)="agregarHabilidades()">+</button>
-            @for(habilidad of prog.habilidades; track $index){
-            <span class="badge bg-primary m-1">{{habilidad}}
+            @for(habilidad of habilidades.controls; track $index){
+            <span class="badge bg-primary m-1">{{habilidad.value}}
                 <button type="button" class="btn-close btn-close-white" (click)="eliminarHabilidades($index)"></button>
             </span> }
         </div>
 
     </div>
-    <hr> -->
+    <hr>
     <div formGroupName="contacto" class="row container mt-2">
         <h3>Datos del contacto</h3>
         <div class="col-md-4">
             <label for="validationCustom02" class="form-label">Email:</label>
             <input type="text" formControlName="email" class="form-control">
         </div>
-        <div class="col-md-4">
-            <label for="validationCustom02" class="form-label">Red Social:</label>
-            <input type="text" formControlName="redSocial" class="form-control">
+        <div formArrayName="redesSociales">
+            <button type="button" (click)="agregarRedSocial()">
+                + redes sociales
+            </button>
+            @for(redSocial of redesSociales.controls; track $index){
+            <div class="col-md-4">
+                <label class="form-label">Red Social:</label>
+                <input type="text" [formControlName]="$index" class="form-control">
+            </div>
+            <button type="button" class="btn btn-close" (click)="eliminarRedSocial($index)"></button>
+            }
         </div>
+
     </div>
     <div formArrayName="proyectos">
         <button (click)="agregarProyectos()">Agregar</button>
@@ -54,7 +72,7 @@
                 <label class="form-label">Fecha Inicio:</label>
                 <input type="date" formControlName="fechaInicio" class="form-control">
                 @if(proyecto.get('fechaInicio')?.hasError('errorFechaInicio')){
-                  <div class="text-danger">La fecha de inicio no puede ser mayor a la de hoy</div>
+                <div class="text-danger">La fecha de inicio no puede ser mayor a la de hoy</div>
                 }
             </div>
             <div class="col-md-4">

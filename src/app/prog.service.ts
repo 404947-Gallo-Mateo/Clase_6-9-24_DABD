@@ -7,13 +7,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProgService {
+ 
 
   private readonly http = inject(HttpClient)
 
   //constructor(private htpp:HttpClient){}
 
   private apiUrl = "http://localhost:3000/programadores/"
-
+  
+  getBydni(dni: string) {
+    const urlFiltro = this.apiUrl + '?dni=' + dni
+    return this.http.get<any>(urlFiltro)
+    
+  }
   get(): Observable<Programador[]> {
     return this.http.get<Programador[]>(this.apiUrl)
   }

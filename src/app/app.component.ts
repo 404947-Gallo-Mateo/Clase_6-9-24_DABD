@@ -10,7 +10,9 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
- 
+
+  //TODO: LLAMAR AL SERVICIO PARA VER EL ROL ACTUAL
+ roleActual : string = 'USER'
  
 
 }
