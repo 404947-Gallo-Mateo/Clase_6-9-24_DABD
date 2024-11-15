@@ -33,7 +33,6 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy {
   habilidadSeleccionada = new FormControl();
 
   id: string = ''
-
   form: FormGroup = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     apellido: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -85,7 +84,6 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy {
   get proyectos() {
     return this.form.controls['proyectos'] as FormArray
   }
-
   agregarProyectos() {
     const proyecto = new FormGroup({
       nombre: new FormControl('', Validators.required),
@@ -94,7 +92,6 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy {
     })
     this.proyectos.push(proyecto)
   }
-  
   quitarProyecto(index: number) {
     this.proyectos.removeAt(index)
   }

@@ -12,9 +12,12 @@ export const routes: Routes = [
     {
         path: 'form',
         component: FormComponent,
+        canActivate: [roleGuard],
+        data: { role: 'EDITOR' }
     },
     {
-        path: 'form/:id', component: FormComponent,
+        path: 'form/:id', component: FormComponent, canActivate: [roleGuard],
+        data: { role: 'EDITOR' }
     },
     {
         path: 'detail/:id', component: DetailComponent
@@ -27,7 +30,7 @@ export const routes: Routes = [
     },
     {
         path: 'reports', loadComponent: () => import('./reports/reports.component').then(r => r.ReportsComponent),
-      
+        data: { role: 'ADMIN' }
     },
     {
         path: 'login', component: LoginComponent
